@@ -1,0 +1,9 @@
+.footer {
+  background-color: #333; /* Gris foncé pour le pied de page */
+  color: white;
+  text-align: center;
+  padding: 1em 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
