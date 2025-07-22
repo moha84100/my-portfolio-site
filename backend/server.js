@@ -93,7 +93,11 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     res.json({ received: true });
 });
 
-app.use(cors());
+app.use(cors({
+  origin: "https://moha84100.github.io", // ton site frontend GitHub Pages
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
