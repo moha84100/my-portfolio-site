@@ -71,7 +71,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                         html: `<p>Bonjour ${customerName},</p>
                                <p>Merci pour votre achat de l'e-book "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE".</p>
                                <p>Votre paiement de ${amountTotal} ${currency} a été traité avec succès.</p>
-                               <p>Vous pouvez télécharger votre e-book ici : <a href="http://localhost:${port}/ebooks/ebookiaprompt.pdf">Télécharger votre e-book</a></p>
+                               <p>Vous pouvez télécharger votre e-book ici : <a href="https://my-portfolio-site-vj11.onrender.com/ebooks/ebookiaprompt.pdf">Télécharger votre e-book</a></p>
                                <p>N'hésitez pas si vous avez des questions.</p>
                                <p>Cordialement,</p>
                                <p>Mohamed Ech-Chkoubi</p>`,
@@ -160,8 +160,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.CLIENT_URL}/cancel`,
+            success_url: `https://moha84100.github.io/my-portfolio-site/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `https://moha84100.github.io/my-portfolio-site/cancel`,
         });
 
         res.json({ id: session.id });

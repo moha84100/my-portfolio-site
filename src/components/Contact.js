@@ -22,7 +22,7 @@ function Contact() {
     setStatus(null); // Clear previous status
 
     try {
-      const response = await axios.post('http://localhost:5000/api/contact', formData);
+      const response = await axios.post('https://my-portfolio-site-vj11.onrender.com/api/contact', formData);
       if (response.status === 200) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' }); // Clear form

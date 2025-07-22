@@ -21,7 +21,7 @@ function Ebooks() {
   const handlePurchase = async (ebook) => {
     try {
       const stripe = await stripePromise;
-      const response = await axios.post('http://localhost:5000/api/create-checkout-session', {
+      const response = await axios.post('https://my-portfolio-site-vj11.onrender.com/api/create-checkout-session', {
         ebookTitle: ebook.title,
         ebookPrice: ebook.price,
       });
