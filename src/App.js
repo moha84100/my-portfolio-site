@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // Forced update to trigger GitHub Pages deploy
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
