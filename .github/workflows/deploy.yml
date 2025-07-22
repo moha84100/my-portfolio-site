@@ -32,6 +32,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }} # Utilise le token GitHub fourni par défaut
         publish_dir: ./build # Spécifie le dossier à déployer (le dossier de build de React)
+        publish_branch: main # Pousse les fichiers vers la branche main
         # Si votre site est hébergé sur une sous-route (comme /my-portfolio-site),
         # assurez-vous que votre package.json a "homepage": "https://<username>.github.io/<repo-name>"
         # et que votre script de build utilise PUBLIC_URL=/repo-name
