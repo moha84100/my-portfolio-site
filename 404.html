@@ -4,8 +4,23 @@
     <meta charset="utf-8">
     <title>Page Not Found</title>
     <script type="text/javascript">
-      // Redirect to the main index.html for React Router to handle the path
-      window.location.replace('/my-portfolio-site/index.html' + window.location.pathname + window.location.search + window.location.hash);
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script takes the current URL and parses out the filename portion,
+      // then redirects to the root of the site with the filename as a hash.
+      // This allows the SPA to pick up the route from the hash and then
+      // use history.replaceState to put the route back in the URL.
+      // This is a workaround for GitHub Pages not supporting client-side routing.
+      (function(){
+        var path = window.location.pathname;
+        var query = window.location.search;
+        var hash = window.location.hash;
+        // If the path is not the root of the site, redirect to the root with the path as a hash
+        if (path !== '/my-portfolio-site/') { // Adjust this to your actual base path
+          window.location.replace('/my-portfolio-site/' + '#' + path + query + hash);
+        }
+      })();
     </script>
   </head>
   <body>
