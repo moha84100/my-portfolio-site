@@ -4,13 +4,13 @@ import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 
 // Remplacez par votre clé publique Stripe (pk_test_...) après avoir configuré votre .env dans le backend
-const stripePromise = loadStripe('pk_test_51RnenQQpSHVDUuMHKnuZmXBewGhZbjFZ1sDFXr1uM4sCBEDlC29MS7RPzBJ6IVnjNz5ZGQyuW7rIvWdDWdJG8UDq003Q3OJ6xm'); 
+const stripePromise = loadStripe('pk_live_51Rnen1JPS65phSR8HWZvQuDRiPZZXFetHeyrsmCIWf2ZXQszqi8x1OpH0eAPU2O7KRiOdVbdIx2qJiTbb9LZGThz00K6929tzW'); // Remplacez par votre clé publique Stripe en mode production 
 
 function Ebooks() {
   const ebooks = [
     {
       id: 3,
-      title: "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE",
+      title: "À la Conquête du Prompt Engineering : Domptez l’Intelligence Artificielle par la Maîtrise du Langage",
       description: "Plongez au cœur du Prompt Engineering et maîtrisez l'art de communiquer avec l'intelligence artificielle. Ce guide essentiel vous révèle les techniques et les stratégies pour formuler des requêtes précises, optimiser les réponses de l'IA et libérer tout son potentiel créatif et productif. Que vous soyez débutant ou expert, transformez votre interaction avec l'IA en une véritable superpuissance.",
       price: 14.99, // Utilisez un nombre pour le prix
       image: 'https://via.placeholder.com/300x200?text=Ebook+IA',
