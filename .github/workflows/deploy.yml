@@ -1,0 +1,34 @@
+name: Deploy React App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Déclenche le workflow à chaque push sur la branche main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Exécute le job sur une machine virtuelle Ubuntu
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # Récupère le code de votre dépôt
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Utilise Node.js version 20
+
+    - name: Install dependencies
+      run: npm install # Installe les dépendances du projet
+
+    - name: Build React app
+      run: npm run build # Construit l'application React pour la production
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }} # Utilise le token GitHub fourni par défaut
+        publish_dir: ./build # Spécifie le dossier à déployer (le dossier de build de React)
+        # Si votre site est hébergé sur une sous-route (comme /my-portfolio-site),
+        # assurez-vous que votre package.json a "homepage": "https://<username>.github.io/<repo-name>"
+        # et que votre script de build utilise PUBLIC_URL=/repo-name
