@@ -1,21 +1,44 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+
+// Remplacez par votre clé publique Stripe (pk_test_...) après avoir configuré votre .env dans le backend
+const stripePromise = loadStripe('pk_test_51RnenQQpSHVDUuMHKnuZmXBewGhZbjFZ1sDFXr1uM4sCBEDlC29MS7RPzBJ6IVnjNz5ZGQyuW7rIvWdDWdJG8UDq003Q3OJ6xm'); 
 
 function Ebooks() {
   const ebooks = [
     {
       id: 3,
-      title: "Maîtriser l'IA au Quotidien : Guide Pratique pour Débutants et Experts",
-      description: "Découvrez comment intégrer l'intelligence artificielle dans votre vie personnelle et professionnelle. Ce guide complet vous offre des stratégies concrètes, des outils essentiels et des cas d'usage pour exploiter pleinement le potentiel de l'IA, de la productivité à la créativité.",
-      price: '19.99€',
+      title: "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE",
+      description: "Plongez au cœur du Prompt Engineering et maîtrisez l'art de communiquer avec l'intelligence artificielle. Ce guide essentiel vous révèle les techniques et les stratégies pour formuler des requêtes précises, optimiser les réponses de l'IA et libérer tout son potentiel créatif et productif. Que vous soyez débutant ou expert, transformez votre interaction avec l'IA en une véritable superpuissance.",
+      price: 14.99, // Utilisez un nombre pour le prix
       image: 'https://via.placeholder.com/300x200?text=Ebook+IA',
     },
     // Ajoutez d'autres e-books ici
   ];
 
-  const handleAddToCart = (ebookId) => {
-    alert(`L'e-book ${ebookId} a été ajouté au panier (simulation). Pour un vrai panier, une solution e-commerce est nécessaire.`);
-    // Ici, vous intégreriez la logique d'ajout au panier d'une plateforme e-commerce externe
+  const handlePurchase = async (ebook) => {
+    try {
+      const stripe = await stripePromise;
+      const response = await axios.post('http://localhost:5000/api/create-checkout-session', {
+        ebookTitle: ebook.title,
+        ebookPrice: ebook.price,
+      });
+
+      const session = response.data;
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        alert(result.error.message);
+      }
+    } catch (error) {
+      console.error("Error during Stripe checkout:", error);
+      alert("Une erreur est survenue lors du processus de paiement.");
+    }
   };
 
   return (
@@ -34,9 +57,9 @@ function Ebooks() {
                     {ebook.description}
                   </Card.Text>
                   <div className="d-flex justify-content-between align-items-center mt-3">
-                    <span className="h5 mb-0">{ebook.price}</span>
-                    <Button variant="primary" onClick={() => handleAddToCart(ebook.id)}>
-                      Ajouter au panier
+                    <span className="h5 mb-0">{ebook.price}€</span>
+                    <Button variant="primary" onClick={() => handlePurchase(ebook)}>
+                      Acheter
                     </Button>
                   </div>
                 </Card.Body>

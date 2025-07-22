@@ -12,6 +12,7 @@ import Services from './components/Services';
 import Ebooks from './components/Ebooks';
 import Footer from './components/Footer';
 import BackButton from './components/BackButton';
+import PaymentSuccess from './components/PaymentSuccess'; // Import the new component
 
 // Import des nouvelles pages de détail
 import ServiceDetailVitrine from './components/ServiceDetailVitrine';
@@ -39,6 +40,7 @@ function AppContent() {
         <Route path="/experience" element={<Experience />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ebooks" element={<Ebooks />} />
+        <Route path="/success" element={<PaymentSuccess />} />
         {/* Nouvelles routes pour les pages de détail des services */}
         <Route path="/services/site-vitrine" element={<ServiceDetailVitrine />} />
         <Route path="/services/e-commerce" element={<ServiceDetailEcommerce />} />

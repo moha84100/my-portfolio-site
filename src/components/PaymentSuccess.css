@@ -1,0 +1,18 @@
+.payment-success-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh; /* Ajustez selon vos besoins */
+  text-align: center;
+}
+
+.payment-success-container h2 {
+  color: #28a745; /* Couleur verte pour le succès */
+  margin-bottom: 20px;
+}
+
+.payment-success-container p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}

@@ -1,14 +1,36 @@
-import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import axios from 'axios'; // Import axios
 import './Contact.css';
 
 function Contact() {
-  const handleSubmit = (event) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [status, setStatus] = useState(null); // 'success', 'error', or null
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert('Le formulaire a été soumis. Pour que les messages soient envoyés, une solution backend ou un service tiers est nécessaire.');
-    // Ici, vous intégreriez la logique d'envoi du formulaire (ex: via une API, Formspree, etc.)
+    setStatus(null); // Clear previous status
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/contact', formData);
+      if (response.status === 200) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' }); // Clear form
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -21,19 +43,22 @@ function Contact() {
             
             <h3 className="mt-5 mb-3">Laissez-moi un message</h3>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicName">
+              {status === 'success' && <Alert variant="success">Message envoyé avec succès !</Alert>}
+              {status === 'error' && <Alert variant="danger">Erreur lors de l'envoi du message. Veuillez réessayer plus tard.</Alert>}
+
+              <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Nom</Form.Label>
-                <Form.Control type="text" placeholder="Entrez votre nom" required />
+                <Form.Control type="text" placeholder="Entrez votre nom" required value={formData.name} onChange={handleChange} />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Group className="mb-3" controlId="email">
                 <Form.Label>Adresse Email</Form.Label>
-                <Form.Control type="email" placeholder="Entrez votre email" required />
+                <Form.Control type="email" placeholder="Entrez votre email" required value={formData.email} onChange={handleChange} />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicMessage">
+              <Form.Group className="mb-3" controlId="message">
                 <Form.Label>Message</Form.Label>
-                <Form.Control as="textarea" rows={5} placeholder="Votre message" required />
+                <Form.Control as="textarea" rows={5} placeholder="Votre message" required value={formData.message} onChange={handleChange} />
               </Form.Group>
 
               <Button variant="primary" type="submit">
