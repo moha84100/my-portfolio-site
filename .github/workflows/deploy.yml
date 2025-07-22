@@ -8,6 +8,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest # Exécute le job sur une machine virtuelle Ubuntu
+    environment:
+      name: github-pages
     permissions:
       contents: read # Permet de lire le contenu du dépôt
       pages: write # Permet d'écrire sur les pages GitHub
