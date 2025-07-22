@@ -83,7 +83,7 @@ function Contact() {
               <a href="https://linkedin.com/in/mohamed-ech-chkoubi-a15954227" target="_blank" rel="noopener noreferrer" className="icon-link">
                 <FontAwesomeIcon icon={faLinkedin} size="3x" />
               </a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="icon-link">
+              <a href="https://github.com/moha84100" target="_blank" rel="noopener noreferrer" className="icon-link">
                 <FontAwesomeIcon icon={faGithub} size="3x" />
               </a>
             </div>
