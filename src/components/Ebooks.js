@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -7,6 +7,8 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_live_51Rnen1JPS65phSR8HWZvQuDRiPZZXFetHeyrsmCIWf2ZXQszqi8x1OpH0eAPU2O7KRiOdVbdIx2qJiTbb9LZGThz00K6929tzW'); // Remplacez par votre clé publique Stripe en mode production 
 
 function Ebooks() {
+  const [loading, setLoading] = useState(false);
+
   const ebooks = [
     {
       id: 3,
@@ -19,6 +21,7 @@ function Ebooks() {
   ];
 
   const handlePurchase = async (ebook) => {
+    setLoading(true);
     try {
       const stripe = await stripePromise;
       const response = await axios.post('https://my-portfolio-site-vj11.onrender.com/api/create-checkout-session', {
@@ -34,10 +37,12 @@ function Ebooks() {
 
       if (result.error) {
         alert(result.error.message);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error during Stripe checkout:", error);
       alert("Une erreur est survenue lors du processus de paiement.");
+      setLoading(false);
     }
   };
 
@@ -58,8 +63,21 @@ function Ebooks() {
                   </Card.Text>
                   <div className="d-flex justify-content-between align-items-center mt-3">
                     <span className="h5 mb-0">{ebook.price}€</span>
-                    <Button variant="primary" onClick={() => handlePurchase(ebook)}>
-                      Acheter
+                    <Button variant="primary" onClick={() => handlePurchase(ebook)} disabled={loading}>
+                      {loading ? (
+                        <>
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          <span className="visually-hidden">Chargement...</span>
+                        </>
+                      ) : (
+                        'Acheter'
+                      )}
                     </Button>
                   </div>
                 </Card.Body>
