@@ -168,7 +168,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
         const endTime = Date.now();
     console.log(`Fin de la création de la session Stripe. Durée: ${endTime - startTime}ms`);
-    res.json({ url: session.url });
+    res.json({ id: session.id });
     } catch (error) {
         console.error("Error creating checkout session:", error);
         res.status(500).json({ message: "Erreur lors de la création de la session de paiement." });
