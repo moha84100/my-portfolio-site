@@ -145,7 +145,9 @@ app.post('/api/create-checkout-session', async (req, res) => {
     const { ebookTitle, ebookPrice } = req.body;
 
     try {
-        const session = await stripe.checkout.sessions.create({
+        console.log('Début de la création de la session Stripe...');
+    const startTime = Date.now();
+    const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
@@ -164,7 +166,9 @@ app.post('/api/create-checkout-session', async (req, res) => {
             cancel_url: `https://moha84100.github.io/my-portfolio-site/cancel`,
         });
 
-        res.json({ id: session.id });
+        const endTime = Date.now();
+    console.log(`Fin de la création de la session Stripe. Durée: ${endTime - startTime}ms`);
+    res.json({ url: session.url });
     } catch (error) {
         console.error("Error creating checkout session:", error);
         res.status(500).json({ message: "Erreur lors de la création de la session de paiement." });
