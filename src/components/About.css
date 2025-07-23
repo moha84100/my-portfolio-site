@@ -48,3 +48,25 @@
 .about-block p:last-child {
   margin-bottom: 0;
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .about-content {
+    font-size: 1.05rem;
+  }
+  .about-block {
+    padding: 25px;
+  }
+  .about-block h3 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-content {
+    font-size: 1rem;
+  }
+  .about-block h3 {
+    font-size: 1.3rem;
+  }
+}

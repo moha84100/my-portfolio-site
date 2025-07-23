@@ -16,3 +16,13 @@
   font-size: 1.2rem;
   margin-bottom: 30px;
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .payment-success-container h2 {
+    font-size: 1.8rem;
+  }
+  .payment-success-container p {
+    font-size: 1rem;
+  }
+}

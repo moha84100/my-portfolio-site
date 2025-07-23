@@ -57,3 +57,22 @@
   color: #7a9389;
   text-decoration: underline;
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .social-icons .icon-link {
+    margin: 0 10px;
+  }
+  .contact-info-box {
+    padding: 20px;
+  }
+  .contact-info-box p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .social-icons {
+    justify-content: center;
+  }
+}
