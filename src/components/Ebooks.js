@@ -48,7 +48,7 @@ function Ebooks() {
         <p className="text-center mb-5">Découvrez ma sélection d'e-books pour approfondir vos connaissances.</p>
         <Row className="justify-content-center">
           {ebooks.map((ebook) => (
-            <Col md={6} lg={4} key={ebook.id} className="mb-4">
+            <Col xs={12} md={6} lg={4} key={ebook.id} className="mb-4">
               <Card className="h-100">
                 {/* <Card.Img variant="top" src={ebook.image} /> */}
                 <Card.Body className="d-flex flex-column">
