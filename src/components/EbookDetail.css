@@ -1,0 +1,86 @@
+.ebook-detail-container-new {
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ebook-info-container-new {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    max-width: 800px;
+    width: 100%;
+    padding: 50px;
+    text-align: center;
+}
+
+.ebook-title-new {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.ebook-author-new {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.ebook-description-new {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.ebook-features-new {
+    list-style-position: inside;
+    text-align: left;
+    margin: 0 auto 40px auto;
+    max-width: 500px; /* Adjust width as needed */
+}
+
+.ebook-features-new li {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+}
+
+.purchase-section-new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.ebook-price-new {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.purchase-button-new {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.purchase-button-new:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.purchase-button-new:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}

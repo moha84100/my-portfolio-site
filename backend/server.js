@@ -175,6 +175,54 @@ app.post('/api/create-checkout-session', async (req, res) => {
     }
 });
 
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+app.post('/api/create-checkout-session', async (req, res) => {
+    const { ebookTitle } = req.body;
+    let ebookPrice;
+    let ebookImageUrl;
+
+    // Définir le prix et l'image en fonction du titre de l'ebook
+    if (ebookTitle === "À la Conquête du Prompt Engineering : Domptez l’Intelligence Artificielle par la Maîtrise du Langage") {
+        ebookPrice = 14.99;
+        ebookImageUrl = 'https://my-portfolio-site-vj11.onrender.com/ebooks/ebookiaprompt.png';
+    } else if (ebookTitle === "10 projets web concrets expliqués pas à pas") {
+        ebookPrice = 24.99;
+        ebookImageUrl = 'https://my-portfolio-site-vj11.onrender.com/ebooks/10_projets_web_concrets.png';
+    } else {
+        return res.status(400).json({ error: 'Ebook non reconnu.' });
+    }
+
+    const lineItems = [
+        {
+            price_data: {
+                currency: 'eur',
+                product_data: {
+                    name: ebookTitle,
+                    images: [ebookImageUrl],
+                },
+                unit_amount: Math.round(ebookPrice * 100), // Convertir en centimes
+            },
+            quantity: 1,
+        },
+    ];
+
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: lineItems,
+            mode: 'payment',
+            success_url: `${process.env.FRONTEND_URL}/paymentsuccess`,
+            cancel_url: `${process.env.FRONTEND_URL}/prestation/ebook`, // Redirect back to the ebook page on cancellation
+        });
+        res.json({ id: session.id });
+    } catch (error) {
+        console.error("Error creating checkout session:", error.message);
+        console.error("Stripe error details:", error.raw || error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
