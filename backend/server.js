@@ -142,42 +142,11 @@ app.post('/api/contact', async (req, res) => {
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.post('/api/create-checkout-session', async (req, res) => {
-    const { ebookTitle, ebookPrice } = req.body;
+    console.log('Received request to create checkout session:');
+    console.log('Request body:', req.body);
+    console.log('Stripe Secret Key (last 4 chars):', process.env.STRIPE_SECRET_KEY ? '...' + process.env.STRIPE_SECRET_KEY.slice(-4) : 'Not set');
+    console.log('Frontend URL:', process.env.FRONTEND_URL);
 
-    try {
-        console.log('Début de la création de la session Stripe...');
-    const startTime = Date.now();
-    const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'eur',
-                        product_data: {
-                            name: ebookTitle,
-                        },
-                        unit_amount: Math.round(ebookPrice * 100), // price in cents, rounded to avoid float issues
-                    },
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            success_url: `https://moha84100.github.io/my-portfolio-site/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `https://moha84100.github.io/my-portfolio-site/cancel`,
-        });
-
-        const endTime = Date.now();
-    console.log(`Fin de la création de la session Stripe. Durée: ${endTime - startTime}ms`);
-    res.json({ id: session.id });
-    } catch (error) {
-        console.error("Error creating checkout session:", error);
-        res.status(500).json({ message: "Erreur lors de la création de la session de paiement." });
-    }
-});
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-app.post('/api/create-checkout-session', async (req, res) => {
     const { ebookTitle } = req.body;
     let ebookPrice;
     let ebookImageUrl;
