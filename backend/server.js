@@ -145,7 +145,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
     console.log('Received request to create checkout session:');
     console.log('Request body:', req.body);
     console.log('Stripe Secret Key (last 4 chars):', process.env.STRIPE_SECRET_KEY ? '...' + process.env.STRIPE_SECRET_KEY.slice(-4) : 'Not set');
-    console.log('Frontend URL:', process.env.FRONTEND_URL);
+    console.log('Frontend URL:', process.env.CLIENT_URL);
 
     const { ebookTitle } = req.body;
     let ebookPrice;
@@ -181,8 +181,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${process.env.FRONTEND_URL}/paymentsuccess`,
-            cancel_url: `${process.env.FRONTEND_URL}/prestation/ebook`, // Redirect back to the ebook page on cancellation
+            success_url: `${process.env.CLIENT_URL}/paymentsuccess`,
+            cancel_url: `${process.env.CLIENT_URL}/prestation/ebook`, // Redirect back to the ebook page on cancellation
         });
         res.json({ id: session.id });
     } catch (error) {
