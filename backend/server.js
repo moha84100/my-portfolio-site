@@ -41,20 +41,41 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 },
             });
 
+            let ebookTitleForEmail = "";
+            let ebookDownloadLink = "";
+            let emailSubject = "";
+
+            if (amountTotal === 14.99) {
+                ebookTitleForEmail = "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE";
+                ebookDownloadLink = "https://my-portfolio-site-vj11.onrender.com/ebooks/ebookiaprompt.pdf";
+                emailSubject = "Votre e-book : À la Conquête du Prompt Engineering";
+            } else if (amountTotal === 24.99) {
+                ebookTitleForEmail = "10 projets web concrets expliqués pas à pas";
+                ebookDownloadLink = "https://my-portfolio-site-vj11.onrender.com/ebooks/10_projets_web_concrets.pdf";
+                emailSubject = "Votre e-book : 10 projets web concrets";
+            } else {
+                // Cas où le montant ne correspond à aucun ebook connu
+                ebookTitleForEmail = "E-book inconnu";
+                ebookDownloadLink = "Veuillez contacter le support pour obtenir votre e-book.";
+                emailSubject = "Votre achat d'e-book (E-book inconnu)";
+            }
+
             // 1. Send notification email to you (Mohamed)
             try {
                 await transporter.sendMail({
                     from: `"Stripe Notification" <${process.env.EMAIL_USER}>`,
                     to: process.env.EMAIL_USER, // Your email address
-                    subject: `Nouvel achat d'e-book : ${customerName}`,
+                    subject: `Nouvel achat d'e-book : ${ebookTitleForEmail} par ${customerName}`,
                     html: `<p>Bonjour Mohamed,</p>
                            <p>Un nouvel achat d'e-book a été effectué :</p>
                            <ul>
+                               <li><strong>E-book:</strong> ${ebookTitleForEmail}</li>
                                <li><strong>Client:</strong> ${customerName} (${customerEmail})</li>
                                <li><strong>Montant:</strong> ${amountTotal} ${currency}</li>
                                <li><strong>Session ID:</strong> ${session.id}</li>
                            </ul>
-                           <p>Veuillez envoyer l'e-book "Maîtriser l'IA au Quotidien" à ${customerEmail}.</p>`,
+                           <p>Veuillez envoyer l'e-book "${ebookTitleForEmail}" à ${customerEmail}.</p>
+                           ${ebookDownloadLink.startsWith('http') ? `<p>Lien de téléchargement automatique : <a href="${ebookDownloadLink}">${ebookDownloadLink}</a></p>` : ''}`,
                 });
                 console.log(`Notification email sent to ${process.env.EMAIL_USER}`);
             } catch (emailError) {
@@ -67,11 +88,11 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                     await transporter.sendMail({
                         from: `"Mohamed Ech-Chkoubi" <${process.env.EMAIL_USER}>`,
                         to: customerEmail,
-                        subject: "Votre e-book : À la Conquête du Prompt Engineering",
+                        subject: emailSubject,
                         html: `<p>Bonjour ${customerName},</p>
-                               <p>Merci pour votre achat de l'e-book "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE".</p>
+                               <p>Merci pour votre achat de l'e-book "${ebookTitleForEmail}".</p>
                                <p>Votre paiement de ${amountTotal} ${currency} a été traité avec succès.</p>
-                               <p>Vous pouvez télécharger votre e-book ici : <a href="https://my-portfolio-site-vj11.onrender.com/ebooks/ebookiaprompt.pdf">Télécharger votre e-book</a></p>
+                               <p>Vous pouvez télécharger votre e-book ici : <a href="${ebookDownloadLink}">Télécharger votre e-book</a></p>
                                <p>N'hésitez pas si vous avez des questions.</p>
                                <p>Cordialement,</p>
                                <p>Mohamed Ech-Chkoubi</p>`,
