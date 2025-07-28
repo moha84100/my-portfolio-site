@@ -41,70 +41,20 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 },
             });
 
-            const sessionWithLineItems = await stripe.checkout.sessions.retrieve(session.id, {
-                expand: ['line_items'],
-            });
-            const lineItems = sessionWithLineItems.line_items.data;
-
-            let purchasedEbookTitle = 'Ebook inconnu';
-            let ebookDownloadLink = '';
-            let customerEmailSubject = 'Votre achat d'e-book';
-            let customerEmailContent = '';
-
-            const ebooksData = {
-                "À la Conquête du Prompt Engineering : Domptez l’Intelligence Artificielle par la Maîtrise du Langage": {
-                    fullTitle: "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE",
-                    downloadLink: "https://my-portfolio-site-vj11.onrender.com/ebooks/ebookiaprompt.pdf",
-                    subject: "Votre e-book : À la Conquête du Prompt Engineering",
-                },
-                "10 projets web concrets expliqués pas à pas": {
-                    fullTitle: "10 projets web concrets expliqués pas à pas",
-                    downloadLink: "https://my-portfolio-site-vj11.onrender.com/ebooks/10_projets_web_concrets.pdf",
-                    subject: "Votre e-book : 10 projets web concrets",
-                },
-            };
-
-            if (lineItems.length > 0) {
-                const product = lineItems[0].price.product;
-                const productDetails = await stripe.products.retrieve(product);
-                purchasedEbookTitle = productDetails.name;
-
-                if (ebooksData[purchasedEbookTitle]) {
-                    ebookDownloadLink = ebooksData[purchasedEbookTitle].downloadLink;
-                    customerEmailSubject = ebooksData[purchasedEbookTitle].subject;
-                    customerEmailContent = `<p>Bonjour ${customerName},</p>
-                                            <p>Merci pour votre achat de l'e-book "${ebooksData[purchasedEbookTitle].fullTitle}".</p>
-                                            <p>Votre paiement de ${amountTotal} ${currency} a été traité avec succès.</p>
-                                            <p>Vous pouvez télécharger votre e-book ici : <a href="${ebookDownloadLink}">Télécharger votre e-book</a></p>
-                                            <p>N'hésitez pas si vous avez des questions.</p>
-                                            <p>Cordialement,</p>
-                                            <p>Mohamed Ech-Chkoubi</p>`;
-                } else {
-                    customerEmailContent = `<p>Bonjour ${customerName},</p>
-                                            <p>Merci pour votre achat de l'e-book "${purchasedEbookTitle}".</p>
-                                            <p>Votre paiement de ${amountTotal} ${currency} a été traité avec succès.</p>
-                                            <p>Malheureusement, le lien de téléchargement n'a pas pu être généré automatiquement. Veuillez contacter le support pour obtenir votre e-book.</p>
-                                            <p>Cordialement,</p>
-                                            <p>Mohamed Ech-Chkoubi</p>`;
-                }
-            }
-
             // 1. Send notification email to you (Mohamed)
             try {
                 await transporter.sendMail({
                     from: `"Stripe Notification" <${process.env.EMAIL_USER}>`,
                     to: process.env.EMAIL_USER, // Your email address
-                    subject: `Nouvel achat d'e-book : ${purchasedEbookTitle} par ${customerName}`,
+                    subject: `Nouvel achat d'e-book : ${customerName}`,
                     html: `<p>Bonjour Mohamed,</p>
                            <p>Un nouvel achat d'e-book a été effectué :</p>
                            <ul>
-                               <li><strong>E-book:</strong> ${purchasedEbookTitle}</li>
                                <li><strong>Client:</strong> ${customerName} (${customerEmail})</li>
                                <li><strong>Montant:</strong> ${amountTotal} ${currency}</li>
                                <li><strong>Session ID:</strong> ${session.id}</li>
                            </ul>
-                           <p>Veuillez envoyer l'e-book "${purchasedEbookTitle}" à ${customerEmail}.</p>
-                           ${ebookDownloadLink ? `<p>Lien de téléchargement automatique : <a href="${ebookDownloadLink}">${ebookDownloadLink}</a></p>` : ''}`,
+                           <p>Veuillez envoyer l'e-book "Maîtriser l'IA au Quotidien" à ${customerEmail}.</p>`,
                 });
                 console.log(`Notification email sent to ${process.env.EMAIL_USER}`);
             } catch (emailError) {
@@ -117,8 +67,14 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                     await transporter.sendMail({
                         from: `"Mohamed Ech-Chkoubi" <${process.env.EMAIL_USER}>`,
                         to: customerEmail,
-                        subject: customerEmailSubject,
-                        html: customerEmailContent,
+                        subject: "Votre e-book : À la Conquête du Prompt Engineering",
+                        html: `<p>Bonjour ${customerName},</p>
+                               <p>Merci pour votre achat de l'e-book "À la Conquête du Prompt Engineering : DOMPTEZ L’INTELLIGENCE ARTIFICIELLE PAR LA MAITRISE DU LANGAGE".</p>
+                               <p>Votre paiement de ${amountTotal} ${currency} a été traité avec succès.</p>
+                               <p>Vous pouvez télécharger votre e-book ici : <a href="https://my-portfolio-site-vj11.onrender.com/ebooks/ebookiaprompt.pdf">Télécharger votre e-book</a></p>
+                               <p>N'hésitez pas si vous avez des questions.</p>
+                               <p>Cordialement,</p>
+                               <p>Mohamed Ech-Chkoubi</p>`,
                     });
                     console.log(`Confirmation email sent to ${customerEmail}`);
                 } catch (emailError) {
