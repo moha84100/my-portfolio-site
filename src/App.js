@@ -51,6 +51,7 @@ function AppContent() {
 }
 
 function App() {
+  console.log('PUBLIC_URL:', process.env.PUBLIC_URL);
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <AppContent />
