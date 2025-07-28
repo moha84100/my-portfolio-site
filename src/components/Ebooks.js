@@ -62,7 +62,6 @@ function Ebooks() {
           {ebooks.map((ebook) => (
             <Col xs={12} md={6} lg={4} key={ebook.id} className="mb-4">
               <Card className="h-100 d-flex flex-column">
-                <Card.Img variant="top" src={ebook.image} />
                 <Card.Body className="d-flex flex-column flex-grow-1">
                   <Card.Title>{ebook.title}</Card.Title>
                   <Card.Text className="flex-grow-1">
