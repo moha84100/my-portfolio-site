@@ -28,10 +28,7 @@ jobs:
       run: npm install # Installe les dépendances du projet
 
     - name: Build React app
-      run: npm run build
-      env:
-        REACT_APP_STRIPE_PUBLIC_KEY: ${{ secrets.REACT_APP_STRIPE_PUBLIC_KEY }}
-        CI: false
+      run: npm run build # Construit l'application React pour la production
 
     - name: Setup Pages
       uses: actions/configure-pages@v5 # Configure l'environnement de déploiement des pages
