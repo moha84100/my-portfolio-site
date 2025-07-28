@@ -15,14 +15,12 @@ function Ebooks() {
       title: "À la Conquête du Prompt Engineering : Domptez l’Intelligence Artificielle par la Maîtrise du Langage",
       description: "Maîtrisez l'art de communiquer avec l'IA pour des résultats optimisés.",
       price: 14.99,
-      image: 'https://via.placeholder.com/300x200?text=Ebook+IA', // Placeholder
     },
     {
       id: 2,
       title: "10 projets web concrets expliqués pas à pas",
       description: "Boostez votre portfolio avec 10 projets réels, expliqués pas à pas.",
       price: 24.99,
-      image: process.env.PUBLIC_URL + '/ebooks/10_projets_web_concrets.png',
     },
   ];
 
