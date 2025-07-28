@@ -3,6 +3,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import './EbookDetail.css';
 
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
 const EbookDetail = () => {
     const [loading, setLoading] = useState(false);
 
@@ -22,7 +24,7 @@ const EbookDetail = () => {
     const handlePurchase = async () => {
         setLoading(true);
         try {
-            const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+            const stripe = await stripePromise;
             const response = await axios.post('https://my-portfolio-site-vj11.onrender.com/api/create-checkout-session', {
                 ebookTitle: ebook.title,
             });
