@@ -219,6 +219,11 @@ app.post('/api/create-checkout-session', async (req, res) => {
     }
 });
 
+// Serve React App for any other routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
