@@ -162,6 +162,12 @@ app.post('/api/contact', async (req, res) => {
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+// API endpoint for health check
+app.get('/api/health', (req, res) => {
+  res.sendStatus(200);
+});
+
+// API endpoint to create a checkout session
 app.post('/api/create-checkout-session', async (req, res) => {
     console.log('Received request to create checkout session:');
     console.log('Request body:', req.body);
