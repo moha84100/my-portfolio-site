@@ -63,8 +63,10 @@
 }
 
 .hero-section img {
-  width: 800px;
-  height: 800px;
+  width: 80vw;
+  height: 80vw;
+  max-width: 400px;
+  max-height: 400px;
   object-fit: cover;
   border-radius: 50%;
   border: 8px solid #c5963f;
@@ -107,7 +109,8 @@
   left: 50%;
   bottom: -20px;
   transform: translateX(-50%);
-  width: 100px;
+  width: 20vw;
+  max-width: 100px;
   height: 5px;
   background-color: #c5963f;
   border-radius: 3px;
