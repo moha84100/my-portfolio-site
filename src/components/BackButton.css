@@ -3,9 +3,9 @@
   top: 20px; /* Ajuste la position verticale */
   left: 20px; /* Ajuste la position horizontale */
   z-index: 1000;
-  background-color: #e6dccd; /* Couleur beige */
-  border-color: #e6dccd;
-  color: #333; /* Texte gris foncé */
+  background-color: #d5f4ff; /* Couleur beige */
+  border-color: #d5f4ff;
+  color: #060429; /* Texte gris foncé */
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 600;

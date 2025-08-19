@@ -1,11 +1,11 @@
 .social-icons .icon-link {
   margin: 0 15px;
-  color: #4A4A4A; /* Nouvelle couleur de texte */
+  color: #060429; /* Nouvelle couleur de texte */
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-icons .icon-link:hover {
-  color: #8aa399;
+  color: #060429;
   transform: scale(1.1);
 }
 
@@ -18,14 +18,14 @@
 }
 
 .form-control:focus {
-  border-color: #8aa399;
+  border-color: #060429;
   box-shadow: 0 0 0 0.25rem rgba(138, 163, 153, 0.25);
 }
 
 /* Cadre pour les coordonnées */
 .contact-info-box {
-  background-color: #f8f9fa;
-  border: 4px solid #8aa399;
+  background-color: #d5f4ff;
+  border: 4px solid #060429;
   border-radius: 12px;
   padding: 30px;
   margin-top: 40px;
@@ -44,17 +44,17 @@
 }
 
 .contact-info-box strong {
-  color: #4A4A4A; /* Nouvelle couleur de texte */
+  color: #060429; /* Nouvelle couleur de texte */
 }
 
 .contact-info-box a {
-  color: #8aa399;
+  color: #060429;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .contact-info-box a:hover {
-  color: #7a9389;
+  color: #1a183a;
   text-decoration: underline;
 }
 

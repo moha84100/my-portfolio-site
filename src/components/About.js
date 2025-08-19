@@ -4,9 +4,9 @@ import './About.css';
 
 function About() {
   return (
-    <section className="section-padding">
+    <section id="about" className="section-padding" style={{ background: 'linear-gradient(to bottom, #060429, #d5f4ff)' }}>
       <Container>
-        <h2 className="section-title">À propos de moi</h2>
+        <h2 className="section-title" style={{ color: '#d5f4ff' }}>À propos de moi</h2>
         <Row className="justify-content-center">
           <Col lg={10} className="about-content">
             <div className="about-block">

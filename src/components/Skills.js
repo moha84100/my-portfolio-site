@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, ProgressBar } from 'react-bootstrap';
+import { Fade } from 'react-awesome-reveal';
 
 function Skills() {
   const skills = [
@@ -26,7 +27,7 @@ function Skills() {
   ];
 
   return (
-    <section className="section-padding bg-light">
+    <section id="skills" className="section-padding bg-light" style={{ background: 'linear-gradient(to bottom, #f1ecec, #e0e0e0)' }}>
       <Container>
         <h2 className="section-title">Compétences</h2>
         {skills.map((skillCategory, catIndex) => (
@@ -35,8 +36,10 @@ function Skills() {
             <Row>
               {skillCategory.items.map((skill, index) => (
                 <Col md={6} key={index} className="mb-3">
-                  <h5 className="text-start">{skill.name}</h5>
-                  <ProgressBar now={skill.level} label={`${skill.level}%`} />
+                  <Fade direction={index % 2 === 0 ? "left" : "right"} triggerOnce>
+                    <h5 className="text-start">{skill.name}</h5>
+                    <ProgressBar now={skill.level} label={`${skill.level}%`} />
+                  </Fade>
                 </Col>
               ))}
             </Row>

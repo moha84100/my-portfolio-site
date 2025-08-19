@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Fade } from 'react-awesome-reveal';
 
 function Portfolio() {
   const projects = [
@@ -60,25 +61,27 @@ function Portfolio() {
   ];
 
   return (
-    <section className="section-padding">
+    <section id="portfolio" className="section-padding" style={{ background: 'linear-gradient(to bottom, #e0e0e0, #f1ecec)' }}>
       <Container>
         <h2 className="section-title">Portfolio</h2>
         <Row>
           {projects.map((project, index) => (
             <Col md={4} key={index} className="mb-4">
-              <Card>
-                {/* <Card.Img variant="top" src={project.image} /> */}
-                <Card.Body>
-                  <Card.Title>{project.title}</Card.Title>
-                  <Card.Text>
-                    {project.description}<br/>
-                    <strong>Technologies:</strong> {project.technologies}<br/>
-                    <strong>Défis:</strong> {project.challenges}
-                  </Card.Text>
-                  <Button variant="primary" href={project.githubLink} target="_blank" className="me-2">GitHub</Button>
-                  <Button variant="secondary" href={project.demoLink} target="_blank">Démo</Button>
-                </Card.Body>
-              </Card>
+              <Fade direction={index % 2 === 0 ? "left" : "right"} triggerOnce>
+                <Card>
+                  {/* <Card.Img variant="top" src={project.image} /> */}
+                  <Card.Body>
+                    <Card.Title>{project.title}</Card.Title>
+                    <Card.Text>
+                      {project.description}<br/>
+                      <strong>Technologies:</strong> {project.technologies}<br/>
+                      <strong>Défis:</strong> {project.challenges}
+                    </Card.Text>
+                    <Button variant="primary" href={project.githubLink} target="_blank" className="me-2">GitHub</Button>
+                    <Button variant="secondary" href={project.demoLink} target="_blank">Démo</Button>
+                  </Card.Body>
+                </Card>
+              </Fade>
             </Col>
           ))}
         </Row>

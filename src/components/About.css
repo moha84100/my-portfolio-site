@@ -2,17 +2,17 @@
   text-align: justify;
   font-size: 1.15rem;
   line-height: 1.8;
-  color: #4A4A4A; /* Nouvelle couleur de texte */
+  color: #060429; /* Nouvelle couleur de texte */
 }
 
 .about-block {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-radius: 15px;
   padding: 35px;
   margin-bottom: 30px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-  border: 4px solid #8aa399;
+  border: 4px solid #c5963f;
 }
 
 .about-block:hover {
@@ -23,7 +23,7 @@
 .about-block h3 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  color: #4A4A4A; /* Nouvelle couleur de texte */
+  color: #060429; /* Nouvelle couleur de texte */
   margin-bottom: 20px;
   font-size: 1.8rem;
   position: relative;
@@ -37,7 +37,7 @@
   bottom: 0;
   width: 60px;
   height: 3px;
-  background-color: #e6dccd;
+  background-color: #d5f4ff;
   border-radius: 2px;
 }
 

@@ -6,8 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
-  color: #4A4A4A; /* Nouvelle couleur de texte */
-  background-color: #fafafa;
+  color: #060429; /* Nouvelle couleur de texte */
+  background-color: #d5f4ff;
 }
 
 h1, h2, h3, h4, h5, h6 {

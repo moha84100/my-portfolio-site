@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Fade } from 'react-awesome-reveal';
 
 function Services() {
   const navigate = useNavigate();
@@ -37,22 +38,24 @@ function Services() {
   };
 
   return (
-    <section className="section-padding bg-light">
+    <section id="services" className="section-padding bg-light" style={{ background: 'linear-gradient(to bottom, #d5f4ff, #f1ecec)' }}>
       <Container>
         <h2 className="section-title">Mes Prestations</h2>
         <p className="text-center mb-5">Découvrez les services que je propose pour vous accompagner dans vos projets numériques.</p>
         <Row className="justify-content-center">
           {services.map((service, index) => (
             <Col md={6} lg={4} key={index} className="mb-4">
-              <Card className="h-100 service-card" onClick={() => handleCardClick(service.link)} style={{ cursor: 'pointer' }}>
-                <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-                  {/* <i className={`${service.icon} fa-3x mb-3`}></i> */}
-                  <Card.Title className="text-center">{service.title}</Card.Title>
-                  <Card.Text className="text-center flex-grow-1">
-                    {service.description}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              <Fade direction={index % 2 === 0 ? "left" : "right"} triggerOnce>
+                <Card className="h-100 service-card" onClick={() => handleCardClick(service.link)} style={{ cursor: 'pointer' }}>
+                  <Card.Body className="d-flex flex-column align-items-center justify-content-center">
+                    {/* <i className={`${service.icon} fa-3x mb-3`}></i> */}
+                    <Card.Title className="text-center">{service.title}</Card.Title>
+                    <Card.Text className="text-center flex-grow-1">
+                      {service.description}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Fade>
             </Col>
           ))}
         </Row>

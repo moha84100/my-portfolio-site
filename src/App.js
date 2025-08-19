@@ -18,6 +18,18 @@ import ServiceDetailEcommerce from './components/ServiceDetailEcommerce';
 import ServiceDetailPdfExcel from './components/ServiceDetailPdfExcel';
 import EbookDetail from './components/EbookDetail';
 
+const HomePage = () => (
+  <>
+    <Hero />
+    <About />
+    <Services />
+    <Skills />
+    <Portfolio />
+    <Experience />
+    <Ebooks />
+  </>
+);
+
 function AppContent() {
   const location = useLocation();
   const showBackButton = location.pathname === '/ebooks' || 
@@ -31,12 +43,7 @@ function AppContent() {
       <AppNavbar />
       {showBackButton && <BackButton />} 
       <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/experience" element={<Experience />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ebooks" element={<Ebooks />} />
         <Route path="/success" element={<PaymentSuccess />} />

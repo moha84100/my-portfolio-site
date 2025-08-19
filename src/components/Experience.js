@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Fade } from 'react-awesome-reveal';
 
 function Experience() {
   const experiences = [
@@ -54,42 +55,52 @@ function Experience() {
   ];
 
   return (
-    <section className="section-padding bg-light">
+    <section id="experience" className="section-padding bg-light" style={{ background: 'linear-gradient(to bottom, #f1ecec, #d5f4ff)' }}>
       <Container>
         <h2 className="section-title">Expérience & Éducation</h2>
         <Row>
           <Col md={6}>
             <h3>Expérience Professionnelle</h3>
             {experiences.map((exp, index) => (
-              <Card key={index} className="mb-3">
-                <Card.Body>
-                  <Card.Title>{exp.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{exp.company} | {exp.duration}</Card.Subtitle>
-                  <ul>
-                    {exp.description.map((desc, descIndex) => (
-                      <li key={descIndex}>{desc}</li>
-                    ))}
-                  </ul>
-                </Card.Body>
-              </Card>
+              <Fade direction={index % 2 === 0 ? "left" : "right"} triggerOnce>
+                <Card key={index} className="mb-3">
+                  <Card.Body>
+                    <Card.Title>{exp.title}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{exp.company} | {exp.duration}</Card.Subtitle>
+                    <ul>
+                      {exp.description.map((desc, descIndex) => (
+                        <li key={descIndex}>{desc}</li>
+                      ))}
+                    </ul>
+                  </Card.Body>
+                </Card>
+              </Fade>
             ))}
-            <h4 className="mt-4">Autres expériences professionnelles (missions intérimaires via Adecco)</h4>
-            <ul>
-              {otherExperiences.map((otherExp, index) => (
-                <li key={index}>{otherExp}</li>
-              ))}
-            </ul>
+            <Fade direction="left" triggerOnce>
+            <Card className="mb-3">
+              <Card.Body>
+                <Card.Title>Autres expériences professionnelles (missions intérimaires via Adecco)</Card.Title>
+                <ul>
+                  {otherExperiences.map((otherExp, index) => (
+                    <li key={index}>{otherExp}</li>
+                  ))}
+                </ul>
+              </Card.Body>
+            </Card>
+            </Fade>
           </Col>
           <Col md={6}>
             <h3>Éducation</h3>
             {education.map((edu, index) => (
-              <Card key={index} className="mb-3">
-                <Card.Body>
-                  <Card.Title>{edu.degree}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{edu.institution} | {edu.year}</Card.Subtitle>
-                  {edu.description && <Card.Text>{edu.description}</Card.Text>}
-                </Card.Body>
-              </Card>
+              <Fade direction={index % 2 === 0 ? "right" : "left"} triggerOnce>
+                <Card key={index} className="mb-3">
+                  <Card.Body>
+                    <Card.Title>{edu.degree}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{edu.institution} | {edu.year}</Card.Subtitle>
+                    {edu.description && <Card.Text>{edu.description}</Card.Text>}
+                  </Card.Body>
+                </Card>
+              </Fade>
             ))}
           </Col>
         </Row>

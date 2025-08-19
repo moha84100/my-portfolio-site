@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
+import { Fade } from 'react-awesome-reveal';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -52,31 +53,33 @@ function Ebooks() {
   };
 
   return (
-    <section className="section-padding bg-light">
+    <section id="ebooks" className="section-padding bg-light" style={{ background: 'linear-gradient(to bottom, #d5f4ff, #060429)' }}>
       <Container>
         <h2 className="section-title">Catalogue d'E-books</h2>
         <p className="text-center mb-5">Découvrez ma sélection d'e-books pour approfondir vos connaissances.</p>
         <Row className="justify-content-center">
-          {ebooks.map((ebook) => (
+          {ebooks.map((ebook, index) => (
             <Col xs={12} md={6} lg={4} key={ebook.id} className="mb-4">
-              <Card className="h-100 d-flex flex-column">
-                <Card.Body className="d-flex flex-column flex-grow-1">
-                  <Card.Title>{ebook.title}</Card.Title>
-                  <Card.Text className="flex-grow-1">
-                    {ebook.description}
-                  </Card.Text>
-                  <div className="d-flex justify-content-between align-items-center mt-auto">
-                    <span className="h5 mb-0">{ebook.price}€</span>
-                    <Button variant="primary" onClick={() => handlePurchase(ebook)} disabled={loading && selectedEbook === ebook.id}>
-                      {loading && selectedEbook === ebook.id ? (
-                        <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                      ) : (
-                        'Acheter'
-                      )}
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
+              <Fade direction={index % 2 === 0 ? "left" : "right"} triggerOnce>
+                <Card className="h-100 d-flex flex-column">
+                  <Card.Body className="d-flex flex-column flex-grow-1">
+                    <Card.Title>{ebook.title}</Card.Title>
+                    <Card.Text className="flex-grow-1">
+                      {ebook.description}
+                    </Card.Text>
+                    <div className="d-flex justify-content-between align-items-center mt-auto">
+                      <span className="h5 mb-0">{ebook.price}€</span>
+                      <Button variant="primary" onClick={() => handlePurchase(ebook)} disabled={loading && selectedEbook === ebook.id}>
+                        {loading && selectedEbook === ebook.id ? (
+                          <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                        ) : (
+                          'Acheter'
+                        )}
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Fade>
             </Col>
           ))}
         </Row>
